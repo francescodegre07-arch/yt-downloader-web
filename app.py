@@ -7,7 +7,7 @@ st.title("YouTube Downloader Avanzato")
 video_url = st.text_input("Inserisci l'URL del video di YouTube:")
 formato = st.selectbox(
     "Scegli il formato da scaricare",
-    ["Video e Audio", "Solo Video", "Solo Audio (MP3)"]
+    ["1 - Video + Audio (MP4)", "2 - Solo Video (MP4)", "3 - Solo Audio (MP3)"]
 )
 
 if st.button("Avvia Download"):

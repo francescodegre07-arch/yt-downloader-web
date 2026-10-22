@@ -15,10 +15,15 @@ if st.button("Avvia Download"):
         with st.spinner("Scaricamento ed elaborazione in corso sul server..."):
             modalita = formato[0]
             
+            # Parametri aggiornati per aggirare il blocco 403 di YouTube
             ydl_opts = {
                 'outtmpl': 'download_temporaneo.%(ext)s',
                 'noplaylist': True,
-                'quiet': True
+                'quiet': True,
+                'extractor_args': {'youtube': ['player_client=ios,android,web']},
+                'http_headers': {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+                }
             }
             
             if modalita == "3":

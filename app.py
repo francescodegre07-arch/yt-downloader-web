@@ -2,7 +2,7 @@ import streamlit as st
 import yt_dlp
 import os
 
-st.title("YouTube Downloader Avanzato")
+st.title("YouTube Downloader")
 
 video_url = st.text_input("Inserisci l'URL del video di YouTube:")
 formato = st.selectbox(

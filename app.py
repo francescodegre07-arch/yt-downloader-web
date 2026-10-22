@@ -24,27 +24,29 @@ if st.button("Avvia Download"):
             if modalita == "3":
                 ydl_opts['format'] = 'bestaudio/best'
                 ydl_opts['postprocessors'] = [{'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '192'}]
+                estensione = 'mp3'
             elif modalita == "2":
-                ydl_opts['format'] = 'bestvideo[ext=mp4]/best'
+                ydl_opts['format'] = 'bestvideo/best'
+                ydl_opts['merge_output_format'] = 'mp4'
+                estensione = 'mp4'
             else:
-                ydl_opts['format'] = 'best[ext=mp4]/best'
+                ydl_opts['format'] = 'bestvideo+bestaudio/best'
+                ydl_opts['merge_output_format'] = 'mp4'
+                estensione = 'mp4'
 
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     info = ydl.extract_info(video_url, download=True)
-                    estensione = 'mp3' if modalita == "3" else 'mp4'
                     nome_file_finale = f"download_temporaneo.{estensione}"
                 
-                # Prepara il file elaborato per il download verso l'utente
                 with open(nome_file_finale, "rb") as file:
                     st.download_button(
-                        label="✅ Clicca qui per salvare il file sul dispositivo",
+                        label="✅ Clicca qui per scaricare il file",
                         data=file,
                         file_name=f"{info.get('title', 'video')}.{estensione}",
                         mime=f"video/{estensione}" if estensione == 'mp4' else "audio/mpeg"
                     )
                 
-                # Pulizia del file dal server dopo aver preparato il bottone
                 os.remove(nome_file_finale)
                 
             except Exception as e:
